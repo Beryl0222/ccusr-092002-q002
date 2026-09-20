@@ -1,0 +1,16 @@
+{
+  "service": "seedling-rights",
+  "source_context": "http://ent.people.com.cn/n1/2026/0916/c1012-40799502.html",
+  "sample": {
+    "variety_code": "YN-RS-26",
+    "license": {
+      "region": "玉溪市",
+      "max_generation": 4
+    },
+    "batch": {
+      "id": "PB-0042",
+      "generation": 2,
+      "status": "quarantine_pending"
+    }
+  }
+}
