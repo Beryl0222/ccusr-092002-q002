@@ -1,0 +1,42 @@
+{
+  "service": "seedling-rights",
+  "extends": "propagation_batch.json",
+  "sample": {
+    "trial": {
+      "variety_code": "YN-RS-26",
+      "generation": 2,
+      "batch_id": "PB-0042",
+      "title": "YN-RS-26 多点品种试验",
+      "planned_sowing_date": "2026-11-01",
+      "created_by": "li.researcher"
+    },
+    "protocol": {
+      "sites": [
+        { "site_id": "YX-01", "name": "玉溪一站", "altitude": 1650, "facility": "glasshouse" },
+        { "site_id": "DL-02", "name": "大理二站", "altitude": 2100, "facility": "plastic_tunnel" }
+      ],
+      "treatments": [
+        { "treatment_id": "T-CAND", "kind": "candidate", "variety_code": "YN-RS-26", "batch_id": "PB-0042", "generation": 2 },
+        { "treatment_id": "T-CTRL", "kind": "control", "variety_code": "YN-RS-18", "generation": 3 }
+      ],
+      "design": { "blocks_per_site": 3, "random_seed": 20261101 },
+      "calendar": [
+        { "calendar_id": "OBS-SURV-30", "kind": "survival", "metric": "survival", "due_date": "2026-12-01", "primary": false },
+        { "calendar_id": "OBS-FLOWER", "kind": "flowering", "metric": "flowering_date", "due_date": "2027-01-15", "primary": false },
+        { "calendar_id": "OBS-DIS-60", "kind": "disease", "metric": "disease_index", "due_date": "2027-01-31", "primary": true },
+        { "calendar_id": "OBS-VASE", "kind": "vase_life", "metric": "vase_life_days", "due_date": "2027-02-28", "primary": true },
+        { "calendar_id": "OBS-YIELD", "kind": "yield", "metric": "stems_per_plot", "due_date": "2027-03-10", "primary": false }
+      ],
+      "quality_gate": {
+        "min_survival_rate": 0.6,
+        "max_missing_primary_per_plot": 1,
+        "min_plots_per_treatment": 2
+      },
+      "metric_directions": {
+        "disease_index": "low",
+        "vase_life_days": "high",
+        "stems_per_plot": "high"
+      }
+    }
+  }
+}

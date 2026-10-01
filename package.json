@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "记录花卉品种授权、繁育代次、检疫结果与问题种苗的影响范围。",
+  "description": "记录花卉品种授权、繁育代次、检疫结果与影响范围，并提供多点品种试验服务。",
   "scripts": {
     "check": "node src/service.js --check",
     "test": "node --test"
