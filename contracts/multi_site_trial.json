@@ -1,0 +1,105 @@
+{
+  "service": "seedling-rights",
+  "name": "多点品种试验",
+  "starts_from": "contracts/propagation_batch.json",
+  "description": "以 propagation_batch 的品种、代次、苗批为试验起点；播种前冻结方案、随机区组、盲码、对照与观察日历，站点离线汇入，统计仅用达门槛数据并固定输入快照。样例字段与系统事件/接口同名，均为虚构数据。",
+  "sample": {
+    "origin": {
+      "variety_code": "YN-RS-26",
+      "batch": { "id": "PB-0042", "generation": 2, "status": "quarantine_pending" }
+    },
+    "protocol": {
+      "protocol_id": "PT-2026-01",
+      "status": "frozen_before_sowing",
+      "sowing_at": "2026-11-01T00:00:00Z",
+      "sites": [
+        { "site_code": "S-LOW", "altitude_m": 800, "facility": "钢架大棚" },
+        { "site_code": "S-HIGH", "altitude_m": 2200, "facility": "露天" }
+      ],
+      "blocks_per_site": 3,
+      "plot_size": 100,
+      "entries": [
+        { "variety_code": "YN-RS-26", "batch_id": "PB-0042", "generation": 2, "entry_role": "test" },
+        { "variety_code": "YN-RS-26", "batch_id": "PB-0043", "generation": 3, "entry_role": "test" },
+        { "variety_code": "CK-STD-01", "batch_id": "PB-CK-1", "generation": 1, "entry_role": "control" }
+      ],
+      "metrics": [
+        { "code": "survival", "type": "proportion", "primary": true, "higher_is_better": true },
+        { "code": "disease", "type": "proportion", "primary": false, "higher_is_better": false },
+        { "code": "vase_days", "type": "days", "primary": true, "higher_is_better": true },
+        { "code": "yield", "type": "count", "primary": false, "higher_is_better": true }
+      ],
+      "calendar": [
+        { "code": "establish", "window": { "from": "2026-11-02", "to": "2026-12-01" }, "metrics": ["survival", "disease"] },
+        { "code": "flower", "window": { "from": "2026-12-05", "to": "2027-03-01" }, "metrics": ["vase_days", "yield"] },
+        { "code": "env-season", "window": { "from": "2026-11-02", "to": "2027-03-01" }, "environmental": true }
+      ],
+      "quality_gate": { "max_replacement_ratio": 0.1, "min_env_coverage": 0.8 }
+    },
+    "plot": {
+      "plot_id": "S-LOW-B1-P1",
+      "site_code": "S-LOW",
+      "block_no": 1,
+      "position": 1,
+      "blind_code": "M31E2F2ED",
+      "batch_id": "PB-0042"
+    },
+    "offline_bundle": {
+      "protocol_id": "PT-2026-01",
+      "bundle_id": "B-LOW-1",
+      "site_code": "S-LOW",
+      "records": [
+        {
+          "kind": "observation",
+          "record_id": "OBS-0001",
+          "blind_code": "M31E2F2ED",
+          "metric_code": "vase_days",
+          "value": 14,
+          "observed_at": "2027-01-15T08:00:00Z",
+          "observer": "obs-S-LOW-07"
+        },
+        {
+          "kind": "deviation",
+          "record_id": "DEV-0001",
+          "blind_code": "M31E2F2ED",
+          "deviation_type": "seedling_replacement",
+          "occurred_at": "2026-11-05T08:00:00Z",
+          "reason": "缓苗失败补植",
+          "detail": { "count": 20 },
+          "observer": "obs-S-LOW-07"
+        },
+        {
+          "kind": "environment",
+          "record_id": "ENV-0001",
+          "window_code": "env-season",
+          "readings": { "temp_c": 22.4, "humidity": 0.65 },
+          "coverage": 0.95,
+          "observer": "obs-S-LOW-07"
+        }
+      ]
+    },
+    "deviation_types": [
+      "missed_measurement",
+      "seedling_replacement",
+      "out_of_zone_planting",
+      "early_elimination"
+    ],
+    "analysis": {
+      "analysis_id": "AN-003e521b25-PT-2026-01",
+      "snapshot_head": "003e521b25c20173fb7958a527c073404084e0d8c4ad36e3e891f3fc42ee297f",
+      "input_snapshot_hash": "c03d2dd3a39bd06b07cf315dad44643a3fa7f7a605dbc4bb7d59f6efb3a94c41",
+      "contrast": {
+        "metric_code": "vase_days",
+        "batch_id": "PB-0042",
+        "versus_control": "PB-CK-1",
+        "paired_blocks": 6,
+        "delta": 4.0
+      }
+    },
+    "quarantine_impact": {
+      "batch_id": "PB-0042",
+      "to": "quarantine_revoked",
+      "effect": "flag_affected_analyses_and_recommendations_only"
+    }
+  }
+}

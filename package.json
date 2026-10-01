@@ -1,11 +1,12 @@
 {
   "name": "seedling-rights",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "记录花卉品种授权、繁育代次、检疫结果与问题种苗的影响范围。",
+  "description": "鲜切花多点品种试验：播种前冻结方案与盲码，离线幂等采集，方案偏离留存，质量门槛与可复现快照分析，检疫影响标记。",
   "scripts": {
     "check": "node src/service.js --check",
+    "start": "node src/service.js",
     "test": "node --test"
   }
 }
